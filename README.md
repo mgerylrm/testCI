@@ -1,2 +1,2 @@
 # testCI
-test ci
+tests for CI
