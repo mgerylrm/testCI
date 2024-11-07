@@ -1,0 +1,17 @@
+name: Run test api
+
+on:
+  push:
+
+jobs:
+  run-test-api:
+    name: Run tests api
+    runs-on: ubuntu-latest
+    steps:
+      - name: Bruno CLI runner
+        id: bru-cli
+        uses: krummbar/bruno-run-action@main # (1)
+        with:
+          path: .
+          output: output.json
+          output-format: json
