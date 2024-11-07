@@ -1,6 +1,16 @@
 name: Run test api
 
 on:
+  workflow_dispatch:
+    inputs:
+      overload_UAT_env:
+        type: choice
+        description: 'overload testing environement (SIT default)'
+        required: false
+        options:
+          - SIT
+          - DEV
+          - UAT
   push:
 
 jobs:
