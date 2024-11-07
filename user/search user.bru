@@ -9,3 +9,9 @@ get {
   body: none
   auth: none
 }
+
+assert {
+  res.body.data.email: isDefined
+  res.body.data.first_name: eq George
+  res.status: eq 200
+}

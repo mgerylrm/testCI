@@ -16,3 +16,9 @@ body:json {
       "job": "qa"
   }
 }
+
+assert {
+  res.body.name: eq testname
+  res.body.job: eq qa
+  res.status: eq 201
+}
