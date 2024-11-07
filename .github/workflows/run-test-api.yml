@@ -8,6 +8,8 @@ jobs:
     name: Run tests api
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
       - name: Bruno CLI runner
         id: bru-cli
         uses: krummbar/bruno-run-action@main # (1)
