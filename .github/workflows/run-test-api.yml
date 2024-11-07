@@ -17,6 +17,6 @@ jobs:
         id: bru-cli
         uses: krummbar/bruno-run-action@main # (1)
         with:
-          path: ./
+          path: ./user
           output: output.json
           output-format: json
