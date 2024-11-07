@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
       - name: ls
         run: |
-          ls
+          ls /github/workspace/user
       - name: Bruno CLI runner
         id: bru-cli
         uses: krummbar/bruno-run-action@main # (1)
