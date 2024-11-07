@@ -10,6 +10,9 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+      - name: ls
+        run: |
+          ls
       - name: Bruno CLI runner
         id: bru-cli
         uses: krummbar/bruno-run-action@main # (1)
