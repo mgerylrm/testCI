@@ -8,8 +8,8 @@ on:
         description: 'overload testing environement (SIT default)'
         required: false
         options:
-          - SIT
-          - DEV
+          - frlm-adeo
+          - weldom-uat1
           - UAT
   push:
 
@@ -20,10 +20,32 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+      - name: Import Secrets
+        id: secrets
+        uses: hashicorp/vault-action@v3.0.0
+        with:
+          url: https://vault.factory.adeo.cloud
+          namespace: ${{ needs.set-env.outputs.namespace }}
+          method: jwt
+          path: adeo_github_actions
+          jwtGithubAudience: https://github.com/adeo
+          role: ${{ env.GITHUB_REPOSITORY_NAME_PART }}
+          secrets: |
+            secret/data/ci MONGODB_URI_${{ github.event.inputs.overload_UAT_env || 'SIT' }} | MONGODB_URI;
+            secret/data/ci TNR_BACKEND_URL_${{ github.event.inputs.overload_UAT_env || 'SIT' }} | TNR_BACKEND_URL;
+            secret/data/ci SLACK_TNR_CHANNEL;
+            secret/data/ci SLACK_TECH_CHANNEL;
+            secret/data/ci SLACK_BOT_TOKEN;
+            secret/data/ci JIRA_PERSONAL_ACCESS_TOKEN;
+            secret/data/ci JIRA_API_TOKEN;
       - name: Bruno CLI runner
         id: bru-cli
-        uses: krummbar/bruno-run-action@main # (1)
+        uses: krummbar/bruno-run-action@main
         with:
+          env: ${{ github.event.inputs.overload_UAT_env || 'SIT' }}
+          env-vars: |-
+            foo=bar
+            say='${{ secrets.MESSAGE }}'
           path: .
           output: output.json
           output-format: json
