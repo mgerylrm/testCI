@@ -45,7 +45,12 @@ jobs:
           env: ${{ github.event.inputs.overload_UAT_env || 'SIT' }}
           env-vars: |-
             foo=bar
-            say='${{ secrets.MESSAGE }}'
           path: .
           output: output.json
           output-format: json
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4.3.6
+        with: 
+          name: test-api-results
+          path: ${{ github.workspace}}/output.json
